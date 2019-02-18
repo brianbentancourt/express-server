@@ -1,6 +1,7 @@
 const express = require('express')
+const path = require('path')
 const app = express()
-const expressJSX = require('./src/express-jsx')
+const productsRouter = require('./routes/products')
 
 const puerto = process.env.PORT || 8000
 
@@ -10,13 +11,10 @@ const dev = {
     gitHub: "https://github.com/brianbentancourt"
 }
 
-app.engine("jsx",expressJSX)
-app.set('views', './src/views')
-app.set('view engine', 'jsx')
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'pug')
 
-app.get('/dev',(req, res, next)=>{
-    res.send(dev)
-})
+app.use('/products', productsRouter)
 
 app.get('/',(req, res, next)=>{
     res.render('index', 
