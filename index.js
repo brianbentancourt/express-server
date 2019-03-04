@@ -1,34 +1,36 @@
 const express = require('express')
 const path = require('path')
-const app = express()
-const productsRouter = require('./routes/products')
+const bodyParser = require('body-parser')
+const productsRouter = require('./routes/views/products')
 const productsApiRouter = require('./routes/api/products')
 
+// app
+const app = express()
+
+// middlewares
+app.use(bodyParser.json())
+
+// port
 const puerto = process.env.PORT || 8000
 
-const dev = { 
-    name: "Brian",
-    lastName: "Bentancourt",
-    gitHub: "https://github.com/brianbentancourt"
-}
 
+// static files
 app.use("/static", express.static(path.join(__dirname, 'public')))
 
+// view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 
+// routes
 app.use('/products', productsRouter)
-
 app.use("/api/products", productsApiRouter)
 
+// redirect
 app.get('/',(req, res, next)=>{
-    res.render('index', 
-        {
-            hello: 'hola',
-            world: 'mundo'
-        })
+    res.redirect('/products')
 })
 
+// server 
 const server = app.listen(puerto, ()=>{
     console.log(`Puerto ejecutando en puerto: ${server.address().port}`)
 })
