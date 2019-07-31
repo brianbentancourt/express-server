@@ -3,6 +3,7 @@ const path = require('path')
 const bodyParser = require('body-parser')
 const productsRouter = require('./routes/views/products')
 const productsApiRouter = require('./routes/api/products')
+const { logErrors, clientErrorHandler, errornHandler } = require('./utils/middlewares/errorsHndlers')
 
 // app
 const app = express()
@@ -29,6 +30,11 @@ app.use("/api/products", productsApiRouter)
 app.get('/',(req, res, next)=>{
     res.redirect('/products')
 })
+
+// error handlers
+app.use(logErrors)
+app.use(clientErrorHandler)
+app.use(errornHandler)
 
 // server 
 const server = app.listen(puerto, ()=>{
