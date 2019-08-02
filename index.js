@@ -5,10 +5,11 @@ const productsRouter = require('./routes/views/products')
 const productsApiRouter = require('./routes/api/products')
 const boom = require("boom")
 const { logErrors,
-        wrapErrors,
-        clientErrorHandler,
-        errorHandler } = require('./utils/middlewares/errorsHandlers')
+    wrapErrors,
+    clientErrorHandler,
+    errorHandler } = require('./utils/middlewares/errorsHandlers')
 const isRequestAjaxOrApi = require("./utils/isRequestAjaxOrApi")
+//const slash = require('express-slash')
 
 // app
 const app = express()
@@ -30,6 +31,9 @@ app.set('view engine', 'pug')
 // routes
 app.use('/products', productsRouter)
 app.use("/api/products", productsApiRouter)
+
+//express-slash
+//app.use(slash())
 
 // redirect
 app.get('/', (req, res, next) => {
