@@ -1,13 +1,19 @@
 const express = require('express')
 const router = express.Router()
 const ProductService = require('../../services/products')
+const validation = require('../../utils/middlewares/validationHandler')
+const { productIdSchema, 
+        productTagSchema, 
+        createProductSchema, 
+        updateProductSchema
+    } = require('../../utils/schemas/products')
 
 const productService = new ProductService()
 
-router.get('/', async (req, res, next) => {
+router.get('/' , async (req, res, next) => {
     const { tags } = req.query
     try {
-        throw new Error(' this is an error from API')
+        //throw new Error(' this is an error from API')
         const products = await productService.getProducts({ tags })
 
         res.status(200).json({
@@ -33,7 +39,7 @@ router.get('/:productId', async (req, res, next) => {
     }
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/', validation(createProductSchema), async (req, res, next) => {
     const { body: product } = req
     try {
         const prod = await productService.createProduct({ product })
@@ -47,7 +53,7 @@ router.post('/', async (req, res, next) => {
     }
 })
 
-router.put('/:productId', async (req, res, next) => {
+router.put('/:productId', validation({ productId: productIdSchema }, "params"), validation(updateProductSchema), async (req, res, next) => {
     const { productId } = req.params
     const { body: product } = req
     try {
