@@ -3,7 +3,12 @@ const path = require('path')
 const bodyParser = require('body-parser')
 const productsRouter = require('./routes/views/products')
 const productsApiRouter = require('./routes/api/products')
-const { logErrors, clientErrorHandler, errornHandler } = require('./utils/middlewares/errorsHndlers')
+const boom = require("boom")
+const { logErrors,
+        wrapErrors,
+        clientErrorHandler,
+        errorHandler } = require('./utils/middlewares/errorsHandlers')
+const isRequestAjaxOrApi = require("./utils/isRequestAjaxOrApi")
 
 // app
 const app = express()
@@ -27,16 +32,29 @@ app.use('/products', productsRouter)
 app.use("/api/products", productsApiRouter)
 
 // redirect
-app.get('/',(req, res, next)=>{
+app.get('/', (req, res, next) => {
     res.redirect('/products')
+})
+
+app.use((req, res, next) => {
+    if (isRequestAjaxOrApi(req)) {
+        const {
+            output: { statusCode, payload }
+        } = boom.notFound();
+
+        res.status(statusCode).json(payload);
+    }
+
+    res.status(404).render("404");
 })
 
 // error handlers
 app.use(logErrors)
+app.use(wrapErrors)
 app.use(clientErrorHandler)
-app.use(errornHandler)
+app.use(errorHandler)
 
 // server 
-const server = app.listen(puerto, ()=>{
+const server = app.listen(puerto, () => {
     console.log(`Puerto ejecutando en puerto: ${server.address().port}`)
 })
