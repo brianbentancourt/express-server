@@ -1,15 +1,18 @@
-const express = require('express')
-const path = require('path')
-const bodyParser = require('body-parser')
-const productsRouter = require('./routes/views/products')
-const productsApiRouter = require('./routes/api/products')
+const express = require("express")
+const path = require("path")
+const bodyParser = require("body-parser")
+
+const productsRouter = require("./routes/views/products")
+const productsApiRouter = require("./routes/api/products")
+const authApiRouter = require("./routes/api/auth")
+
 const boom = require("boom")
 const { logErrors,
     wrapErrors,
     clientErrorHandler,
-    errorHandler } = require('./utils/middlewares/errorsHandlers')
+    errorHandler } = require("./utils/middlewares/errorsHandlers")
 const isRequestAjaxOrApi = require("./utils/isRequestAjaxOrApi")
-//const slash = require('express-slash')
+//const slash = require("express-slash")
 
 // app
 const app = express()
@@ -22,22 +25,23 @@ const puerto = process.env.PORT || 8000
 
 
 // static files
-app.use("/static", express.static(path.join(__dirname, 'public')))
+app.use("/static", express.static(path.join(__dirname, "public")))
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'pug')
+app.set("views", path.join(__dirname, "views"))
+app.set("view engine", "pug")
 
 // routes
-app.use('/products', productsRouter)
+app.use("/products", productsRouter)
 app.use("/api/products", productsApiRouter)
+app.use("/api/auth", authApiRouter)
 
 //express-slash
 //app.use(slash())
 
 // redirect
-app.get('/', (req, res, next) => {
-    res.redirect('/products')
+app.get("/", (req, res, next) => {
+    res.redirect("/products")
 })
 
 app.use((req, res, next) => {
