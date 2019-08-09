@@ -30,15 +30,15 @@ async function seedAdmin() {
     const mongoDB = new MongoLib()
 
     if (await hasAdminUser(mongoDB)) {
-      console.log(chalk.yellow("Admin user already exists"))
+      //console.log(chalk.yellow("Admin user already exists"))
       return process.exit(1)
     }
 
     const adminUserId = await createAdminUser(mongoDB)
-    console.log(chalk.green("Admin user created with id:", adminUserId))
+    //console.log(chalk.green("Admin user created with id:", adminUserId))
     return process.exit(0)
   } catch (error) {
-    console.log(chalk.red(error))
+    //console.log(chalk.red(error))
     process.exit(1)
   }
 }

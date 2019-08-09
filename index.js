@@ -1,6 +1,7 @@
 const express = require("express")
 const path = require("path")
 const bodyParser = require("body-parser")
+const debug = require("debug")("app:server")
 
 const productsRouter = require("./routes/views/products")
 const productsApiRouter = require("./routes/api/products")
@@ -65,5 +66,5 @@ app.use(errorHandler)
 
 // server 
 const server = app.listen(puerto, () => {
-    console.log(`Puerto ejecutando en puerto: ${server.address().port}`)
+    debug(`Puerto ejecutando en puerto: ${server.address().port}`)
 })

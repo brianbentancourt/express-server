@@ -7,7 +7,12 @@
     "start": "node index",
     "dev": "nodemon index",
     "test": "mocha --exit",
-    "test:cover": "nyc npm run test"
+    "test:cover": "nyc npm run test", 
+    "dev:inspect": "nodemon --inspect index",
+    "dev:debug": "DEBUG=express:*,app:* npm run dev",
+    "debug": "DEBUG=express:*,app:* npm run start",
+    "dev:debug:windows": "set DEBUG=express:*,app:* & npm run dev",
+    "debug:windows": "set DEBUG=express:*,app:* & npm run start"
   },
   "repository": {
     "type": "git",
@@ -38,6 +43,7 @@
   },
   "devDependencies": {
     "chalk": "^2.4.2",
+    "debug": "^4.1.1",
     "mocha": "^6.2.0",
     "nodemon": "^1.18.10",
     "nyc": "^14.1.1",
@@ -47,6 +53,11 @@
   },
   "nyc": {
     "all": true,
-    "include": ["routes", "services", "lib", "utils"]
+    "include": [
+      "routes",
+      "services",
+      "lib",
+      "utils"
+    ]
   }
 }
