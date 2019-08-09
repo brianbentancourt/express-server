@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index",
     "dev": "nodemon index",
-    "test": "mocha --exit"
+    "test": "mocha --exit",
+    "test:cover": "nyc npm run test"
   },
   "repository": {
     "type": "git",
@@ -39,8 +40,13 @@
     "chalk": "^2.4.2",
     "mocha": "^6.2.0",
     "nodemon": "^1.18.10",
+    "nyc": "^14.1.1",
     "proxyquire": "^2.1.2",
     "sinon": "^7.4.1",
     "supertest": "^4.0.2"
+  },
+  "nyc": {
+    "all": true,
+    "include": ["routes", "services", "lib", "utils"]
   }
 }

@@ -57,5 +57,7 @@ typings/
 # dotenv environment variables file
 .env
 
+.nyc_output
+
 # next.js build output
 .next
