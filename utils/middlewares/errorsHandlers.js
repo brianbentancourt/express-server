@@ -1,8 +1,8 @@
-const boom = require('boom')
-const { config } = require('../../config')
+const boom = require("boom")
+const { config } = require("../../config")
 const Sentry = require("@sentry/node")
 const isRequestAjaxOrApi = require("../isRequestAjaxOrApi")
-const debug = require(debug)("app:error")
+const debug = require("debug")("app:error")
 
 Sentry.init({ dsn: `https://${config.sentryDns}@sentry.io/${config.sentryId}` })
 

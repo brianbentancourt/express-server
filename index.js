@@ -2,6 +2,7 @@ const express = require("express")
 const path = require("path")
 const bodyParser = require("body-parser")
 const debug = require("debug")("app:server")
+const helmet = require("helmet")
 
 const productsRouter = require("./routes/views/products")
 const productsApiRouter = require("./routes/api/products")
@@ -19,6 +20,7 @@ const isRequestAjaxOrApi = require("./utils/isRequestAjaxOrApi")
 const app = express()
 
 // middlewares
+app.use(helmet())
 app.use(bodyParser.json())
 
 // port
