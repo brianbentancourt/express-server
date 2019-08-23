@@ -4,8 +4,8 @@
   "description": "Servidor express",
   "main": "index.js",
   "scripts": {
-    "start": "set NODE_ENV=production node index",
-    "build": "cd public/assets && cleancss -o main.min.css main.css",
+    "start": "node index",
+    "build": "set NODE_ENV=production cd public/assets && cleancss -o main.min.css main.css",
     "dev": "nodemon index",
     "test": "mocha --exit",
     "test:cover": "nyc npm run test",
