@@ -29,10 +29,10 @@
   "dependencies": {
     "@sentry/node": "^5.5.0",
     "bcrypt": "^3.0.6",
-    "body-parser": "^1.18.3",
+    "body-parser": "^1.20.1",
     "boom": "^7.3.0",
     "dotenv": "^8.0.0",
-    "express": "^4.16.4",
+    "express": "^4.18.2",
     "express-slash": "^2.0.1",
     "helmet": "^3.20.0",
     "joi": "^14.3.1",
